@@ -30,6 +30,7 @@ services:
         fromDatabase:
           name: metabase-db
           property: password
+
 databases:
   - name: metabase-db
     databaseName: metabase
