@@ -1,4 +1,4 @@
-version: '3.1'
+version: "3.1"
 
 # A useful compose file for local development.
 # This compose file contains preconfigured services for many common development
@@ -31,7 +31,6 @@ version: '3.1'
 #   It will hang on step 4/5.
 # - Consider using swarm to declaratively scale up/down.
 services:
-
   # The local-dev profile enables development against a metabase instance.
   # This does the following:
   # - Launch metabase in a clojure container with the most common dev profiles enabled
@@ -69,9 +68,9 @@ services:
     networks:
       - metabasenet
 
-# NOTE: This service isn't ready for prime time. It takes a LONG time to start
-#       up. I think there's some mounts to caches that are needed or something.
-#       Hopefully one of our node geniuses can figure it out.
+  # NOTE: This service isn't ready for prime time. It takes a LONG time to start
+  #       up. I think there's some mounts to caches that are needed or something.
+  #       Hopefully one of our node geniuses can figure it out.
   # Just build the frontend. Mounts local dev so nothing else needed
   fe-builder:
     image: node:22-bullseye
@@ -186,7 +185,6 @@ services:
       - verticadata
     networks:
       - metabasenet
-
 
   # Used this if you need to test metabase's email capabilities
   maildev:
