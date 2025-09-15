@@ -36,11 +36,17 @@ services:
       - key: MB_JETTY_PORT
         value: 3000
       - key: JAVA_OPTS
-        value: "-Xmx1g -XX:+UseG1GC"
+        value: "-Xmx1g -XX:+UseG1GC -Djava.awt.headless=true -Dfile.encoding=UTF-8"
       - key: MB_EDITION
         value: oss
       - key: NODE_ENV
         value: production
+      - key: MB_LOG_LEVEL
+        value: DEBUG
+      - key: MB_JETTY_THREADS
+        value: 50
+      - key: MB_JETTY_QUEUESIZE
+        value: 200
 
 databases:
   - name: metabase-db
