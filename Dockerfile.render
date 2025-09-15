@@ -24,7 +24,12 @@ COPY . .
 RUN git config --global --add safe.directory /home/node
 
 # install frontend dependencies (without frozen-lockfile since yarn.lock might not exist)
-RUN yarn install
+# Add retry mechanism and network timeout configuration with fallback registry
+RUN yarn config set network-timeout 300000 && \
+    yarn config set registry https://registry.yarnpkg.com && \
+    yarn install --network-timeout 300000 || \
+    (echo "Retrying with npm registry..." && yarn config set registry https://registry.npmjs.org && yarn install --network-timeout 300000) || \
+    (echo "Final retry..." && sleep 30 && yarn install --network-timeout 300000)
 
 RUN INTERACTIVE=false CI=true MB_EDITION=$MB_EDITION bin/build.sh :version ${VERSION}
 
