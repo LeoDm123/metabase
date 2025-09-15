@@ -3,7 +3,7 @@ services:
     name: metabase
     env: docker
     dockerfilePath: ./Dockerfile.render
-    plan: free
+    plan: starter
     autoDeploy: true
     healthCheckPath: /
     buildCommand: echo "Build process handled by Dockerfile"
@@ -36,7 +36,7 @@ services:
       - key: MB_JETTY_PORT
         value: 3000
       - key: JAVA_OPTS
-        value: "-Xmx2g -XX:+UseG1GC -XX:+UseStringDeduplication"
+        value: "-Xmx1g -XX:+UseG1GC"
       - key: MB_EDITION
         value: oss
       - key: NODE_ENV
