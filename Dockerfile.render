@@ -23,8 +23,11 @@ COPY . .
 # version is pulled from git, but git doesn't trust the directory due to different owners
 RUN git config --global --add safe.directory /home/node
 
+# Create empty yarn.lock to satisfy postinstall script that expects it
+RUN touch yarn.lock
+
 # install frontend dependencies using npm with legacy peer deps to resolve React conflicts
-RUN npm install --legacy-peer-deps
+RUN npm install --legacy-peer-deps --ignore-scripts
 
 RUN INTERACTIVE=false CI=true MB_EDITION=$MB_EDITION bin/build.sh :version ${VERSION}
 
