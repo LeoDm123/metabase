@@ -3,7 +3,7 @@ services:
     name: metabase
     env: docker
     dockerfilePath: ./Dockerfile
-    plan: starter
+    plan: free
     autoDeploy: true
     healthCheckPath: /
     buildCommand: |
@@ -31,6 +31,7 @@ services:
         fromDatabase:
           name: metabase-db
           property: user
+
       - key: MB_DB_PASS
         fromDatabase:
           name: metabase-db
