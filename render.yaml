@@ -49,4 +49,4 @@ services:
 databases:
   - name: metabase-db
     databaseName: metabase
-    plan: starter
+    plan: free
