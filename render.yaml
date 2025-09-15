@@ -12,7 +12,6 @@ services:
 
       # Build the application
       INTERACTIVE=false CI=true MB_EDITION=oss ./bin/build.sh :version latest
-    startCommand: /app/run_metabase.sh
     envVars:
       - key: MB_DB_TYPE
         value: postgres
