@@ -29,7 +29,9 @@ RUN touch yarn.lock
 # install frontend dependencies using npm with legacy peer deps to resolve React conflicts
 RUN npm install --legacy-peer-deps --ignore-scripts
 
-RUN INTERACTIVE=false CI=true MB_EDITION=$MB_EDITION bin/build.sh :version ${VERSION}
+# Make build scripts executable and run the build
+RUN chmod +x bin/build.sh bin/check-clojure-cli.sh bin/clear-outdated-cpcaches.sh && \
+    INTERACTIVE=false CI=true MB_EDITION=$MB_EDITION bin/build.sh :version ${VERSION}
 
 ###################
 # STAGE 2: runner
