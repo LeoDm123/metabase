@@ -2,11 +2,17 @@ services:
   - type: web
     name: metabase
     env: docker
-    image:
-      url: metabase/metabase:v0.49.17
-    plan: free
+    dockerfilePath: ./Dockerfile
+    plan: starter
     autoDeploy: true
     healthCheckPath: /
+    buildCommand: |
+      # Install dependencies
+      yarn install --frozen-lockfile
+
+      # Build the application
+      INTERACTIVE=false CI=true MB_EDITION=oss ./bin/build.sh :version latest
+    startCommand: /app/run_metabase.sh
     envVars:
       - key: MB_DB_TYPE
         value: postgres
@@ -30,8 +36,18 @@ services:
         fromDatabase:
           name: metabase-db
           property: password
+      - key: MB_JETTY_HOST
+        value: 0.0.0.0
+      - key: MB_JETTY_PORT
+        value: 3000
+      - key: JAVA_OPTS
+        value: "-Xmx2g -XX:+UseG1GC -XX:+UseStringDeduplication"
+      - key: MB_EDITION
+        value: oss
+      - key: NODE_ENV
+        value: production
 
 databases:
   - name: metabase-db
     databaseName: metabase
-    plan: free
+    plan: starter
