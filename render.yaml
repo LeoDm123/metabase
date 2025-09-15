@@ -2,16 +2,11 @@ services:
   - type: web
     name: metabase
     env: docker
-    dockerfilePath: ./Dockerfile
+    dockerfilePath: ./Dockerfile.render
     plan: free
     autoDeploy: true
     healthCheckPath: /
-    buildCommand: |
-      # Install dependencies
-      yarn install --frozen-lockfile
-
-      # Build the application
-      INTERACTIVE=false CI=true MB_EDITION=oss ./bin/build.sh :version latest
+    buildCommand: echo "Build process handled by Dockerfile"
     envVars:
       - key: MB_DB_TYPE
         value: postgres
